@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import type { TickerItem } from "@/lib/telemetry";
 import { formatAmsterdamTime } from "@/lib/time";
 import { jumpTo } from "@/lib/nav";
+import { links } from "@/lib/links";
 import { Ticker } from "./Ticker";
-import { useToast } from "./ToastProvider";
 
 // Mobile diet (≤760px): tighter padding + smaller CTAs so ivan@ + both CTAs + clock all
 // fit at 360px without the bar clipping (mockup ≤760 rules).
@@ -30,7 +30,6 @@ export function Statusline({
   ticker: TickerItem[];
   focus?: string;
 }) {
-  const { toast } = useToast();
   const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
@@ -61,13 +60,13 @@ export function Statusline({
         <Ticker items={ticker} />
       </div>
 
-      <button
-        type="button"
-        onClick={() => toast("cv — we design it next; this button will serve the pdf")}
+      <a
+        href={links.cv}
+        download
         className={`ml-auto ${CTA} min-[761px]:ml-0`}
       >
         cv ⇩
-      </button>
+      </a>
       <button
         type="button"
         onClick={() => jumpTo("contact")}

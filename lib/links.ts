@@ -6,7 +6,13 @@ export const links = {
   github: "https://github.com/Griboed007",
   linkedin: "https://www.linkedin.com/in/ivan-mikheev-313b53234/",
   instagram: "https://www.instagram.com/ivan_von_terrible",
-  email: "cj007mikheev@gmail.com",
+  // Published contact address (010): a dedicated business gmail, chosen by the operator.
+  // `emailBranded` is the eventual hello@imikheev.dev target — a one-line flip once the
+  // registrar/ImprovMX forwarding is live (RUNBOOK step 0).
+  email: "ivan.mikheev.biz@gmail.com",
+  emailBranded: "hello@imikheev.dev",
+  // The CV is a static, byte-stable PDF (010) — served from /public after owner sign-off.
+  cv: "/cv.pdf",
   deckgen: "https://deckforge-web.vercel.app/",
   tracker: "https://project-tracker-mauve-omega.vercel.app/",
   geofenceArticle:

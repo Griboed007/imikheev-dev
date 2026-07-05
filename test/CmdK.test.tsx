@@ -65,7 +65,7 @@ describe("⌘K is keyboard-complete", () => {
 
     fireEvent.keyDown(document, { key: "Enter" });
 
-    expect(writeText).toHaveBeenCalledWith("cj007mikheev@gmail.com");
+    expect(writeText).toHaveBeenCalledWith("ivan.mikheev.biz@gmail.com");
     // Toast fires after the clipboard promise resolves — await it.
     expect(await screen.findByText(/email copied/)).toBeInTheDocument();
     expect(screen.queryByRole("dialog")).toBeNull();

@@ -1776,6 +1776,60 @@ button.ext {
   transform: rotate(300deg);
 }
 
+/* ---------- motto + contact (010) — ported from mockup ---------- */
+/* Look only — the CTA beats are Tailwind animate utilities (animate-beat / animate-beat-fill)
+ * so `hover:animate-none` and `motion-reduce:animate-none` compose cleanly. */
+.motto {
+  text-align: center;
+  padding: 140px 0 150px;
+}
+.motto h2 {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 5.4vw, 3.5rem);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.motto .sub {
+  max-width: 600px;
+  margin: 24px auto 0;
+  color: var(--ink-dim);
+}
+.motto .row {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 42px;
+  flex-wrap: wrap;
+}
+.btn-amber {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--amber);
+  color: #1a130a;
+  border: 1px solid var(--amber);
+  border-radius: 7px;
+  padding: 12px 22px;
+  transition: filter 0.2s;
+  display: inline-block;
+}
+.btn-amber:hover {
+  filter: brightness(1.12);
+}
+.btn-ghost {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-dim);
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  padding: 12px 22px;
+  display: inline-block;
+}
+.btn-ghost:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
 /*
  * Reduced-motion kill switch (tokens.md §motion — a requirement, not polish).
  * Neutralizes every transition/animation/loop globally — including the card hover fills

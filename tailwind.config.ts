@@ -68,6 +68,11 @@ const config: Config = {
           },
           "50%": { borderColor: "var(--amber)", color: "var(--amber)" },
         },
+        // Motto primary CTA — the fill-glow beat variant (tokens.md §motion, line "CTAs").
+        "beat-fill": {
+          "0%,100%": { boxShadow: "0 0 0 rgba(245,167,66,0)" },
+          "50%": { boxShadow: "0 0 26px rgba(245,167,66,.45)" },
+        },
         // Hero accent glow (tokens.md §motion: text-shadow pulse 3.2s ease-in-out).
         glow: {
           "0%,100%": { textShadow: "0 0 14px rgba(245,167,66,.30)" },
@@ -85,6 +90,7 @@ const config: Config = {
         "marquee-mobile": "marquee 36s linear infinite",
         "dot-pulse": "dot-pulse 2.4s ease-in-out infinite",
         beat: "beat 3.2s ease-in-out infinite",
+        "beat-fill": "beat-fill 3.2s ease-in-out infinite",
         glow: "glow 3.2s ease-in-out infinite",
         blink: "blink 1.05s steps(1) infinite",
       },
