@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ivan Mikheev — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3EA; --ink:#1C1610; --dim:#5E5344; --mute:#93876F;
+  --amber:#A8690F; --teal:#0A7A60; --line:#E6DCC8; --strip:#171310; --stripink:#EDE6DA;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#DED5C4}
+body{font-family:var(--sans);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+a{color:var(--amber);text-decoration:none}
+.hint{max-width:210mm;margin:18px auto 10px;font-family:var(--mono);font-size:12px;color:#6E6250;text-align:center}
+.sheet{width:210mm;min-height:296mm;margin:0 auto 30px;background:var(--paper);box-shadow:0 18px 60px rgba(40,30,15,.25);padding:0 0 10mm}
+.strip{background:var(--strip);color:rgba(237,230,218,.62);font-family:var(--mono);font-size:9.5px;
+  display:flex;gap:0;align-items:center;height:9mm;padding:0 16mm;letter-spacing:.02em}
+.strip span{padding:0 12px;border-right:1px solid rgba(237,230,218,.14)}
+.strip span:first-child{padding-left:0}
+.strip span:last-child{border-right:0;margin-left:auto;padding-right:0}
+.strip .u{color:var(--stripink)}
+.strip .a{color:#F5A742}
+.pad{padding:8mm 16mm 0}
+h1{font-family:var(--mono);font-weight:600;font-size:23pt;letter-spacing:-.02em;line-height:1.05}
+.role{font-size:11.5pt;color:var(--dim);margin-top:2mm}
+.role b{color:var(--ink);font-weight:600}
+.contact{font-family:var(--mono);font-size:8.5pt;color:var(--mute);margin-top:3mm;display:flex;flex-wrap:wrap;gap:3px 14px}
+h2{font-family:var(--mono);font-weight:500;font-size:10pt;color:var(--ink);letter-spacing:.01em;
+  border-bottom:1px solid var(--line);padding-bottom:1.6mm;margin:6.5mm 0 3mm;display:flex;justify-content:space-between;align-items:baseline}
+h2 .e{font-size:8pt;color:var(--amber);font-weight:400}
+.row{display:grid;grid-template-columns:34mm 1fr;gap:0 6mm;padding:1.9mm 0;border-bottom:1px solid var(--line);align-items:baseline}
+.row:last-child{border-bottom:0}
+.row .t{font-family:var(--mono);font-size:8.5pt;color:var(--ink);line-height:1.45}
+.row .t small{display:block;color:var(--mute);font-size:7.5pt;font-weight:400}
+.row .d{font-size:9pt;color:var(--dim);line-height:1.5}
+.row .d b{color:var(--ink);font-weight:600}
+.met{font-family:var(--mono);font-size:7.8pt;color:var(--teal);display:block;margin-top:.8mm}
+.chiprow{display:flex;flex-wrap:wrap;gap:1.6mm;margin-top:.5mm}
+.chip{font-family:var(--mono);font-size:7.6pt;border:1px solid var(--line);border-radius:3px;padding:.6mm 2.2mm;color:var(--dim)}
+.st{font-family:var(--mono);font-size:7.2pt;border-radius:3px;padding:.5mm 2mm;margin-left:2mm;white-space:nowrap}
+.s-live{color:var(--amber);background:rgba(168,105,15,.1)}
+.s-ship{color:var(--teal);background:rgba(10,122,96,.1)}
+.s-sun{color:var(--mute);background:rgba(147,135,111,.12)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 10mm}
+.foot{font-family:var(--mono);font-size:7.5pt;color:var(--mute);border-top:1px solid var(--line);margin:6mm 16mm 0;padding-top:2.5mm;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media print{
+  html{background:#fff}
+  .hint{display:none}
+  .sheet{box-shadow:none;margin:0;width:auto;min-height:auto}
+  @page{size:A4;margin:0}
+}
+</style>
+</head>
+<body>
+<div class="hint">preview — print to pdf (⌘P / ctrl+P) · a4 · colors on</div>
+<div class="sheet">
+  <div class="strip">
+    <span><span class="u">ivan</span>@<span class="u">enschede</span></span>
+    <span>~/cv</span>
+    <span>⎇ v0.1</span>
+    <span>focus <span class="a">agentic-platforms</span></span>
+    <span>2026-07</span>
+  </div>
+  <div class="pad">
+    <h1>Ivan Mikheev</h1>
+    <div class="role"><b>AI engineer &amp; entrepreneur.</b> I engineer adoption — interfaces between intelligent systems and the people who use them: protocols, products, and teams.</div>
+    <div class="contact">
+      <span>cj007mikheev@gmail.com</span>
+      <span>github.com/Griboed007</span>
+      <span>linkedin.com/in/ivan-mikheev-313b53234</span>
+      <span>Enschede, NL</span>
+      <span>imikheev.dev</span>
+    </div>
+
+    <h2>Selected systems <span class="e">outcomes first — live links where it runs</span></h2>
+    <div class="row">
+      <div class="t">geofence twin<small>nebius serverless ai challenge · 2026</small></div>
+      <div class="d">Semantic digital twin over GPS telemetry: hybrid anomaly scoring plus a SPARQL-queryable SAREF/RDF knowledge graph; batch enrichment and FastAPI inference, containerized on Nebius. Public write-up on LinkedIn.
+        <span class="met">roc-auc 0.8247 · 24 380 triples · 1.9 s batch · shipped ahead of deadline</span></div>
+    </div>
+    <div class="row">
+      <div class="t">deckgen<small>live product · deckforge-web.vercel.app</small></div>
+      <div class="d">Citation-backed deck generation: every figure resolves to an evidence ledger; orchestrator fans out cite-only agents, a verifier gates the deck. Next.js · Trigger.dev · Supabase/pgvector.
+        <span class="met">194 unit tests · 100% figures cited · 0 dangling citations</span></div>
+    </div>
+    <div class="row">
+      <div class="t">tracker<small>live app</small></div>
+      <div class="d">Multi-project kanban with an AI copilot — column summaries and suggested next moves. The operations twin of how I run projects.</div>
+    </div>
+    <div class="row">
+      <div class="t">voltstream<small>msc systems track · 2026</small></div>
+      <div class="d">Multi-service EV-charging platform: per-service databases, sync + async messaging, graceful degradation under partial failure. Contract-first, three-phase agentic build.</div>
+    </div>
+    <div class="row">
+      <div class="t">matter home<small>running network</small></div>
+      <div class="d">RPi5 border router with Nordic RCP radio; ESP32-C6/S3 nodes bridged into the Matter-over-Thread standard so custom hardware commissions and behaves like factory devices.</div>
+    </div>
+
+    <h2>Ventures &amp; roles <span class="e">the honest ledger — with the lesson each one paid for</span></h2>
+    <div class="row">
+      <div class="t">2025 → now<small>nullspace.cloud · easyletters.ai</small></div>
+      <div class="d"><b>Strategic consultant</b> — agentic-first product transformation, sales architecture, product-market-fit for two NL startups.<span class="st s-live">advising</span></div>
+    </div>
+    <div class="row">
+      <div class="t">2024 → 2025<small>find-vendor</small></div>
+      <div class="d"><b>Founder</b> — agentic sourcing for industrial procurement; field research with truck, food, and solar manufacturers. Lesson: agents fail on trust, not capability — sell the audit trail first.<span class="st s-sun">sunset</span></div>
+    </div>
+    <div class="row">
+      <div class="t">feb → may 2024<small>sauroneye → earthian</small></div>
+      <div class="d"><b>Commercial lead</b> — AI green-investment assessment; B2B with Swiss investment and portfolio firms and Dutch insurers. Lesson: enterprise AI sells on auditability before accuracy.<span class="st s-sun">exited</span></div>
+    </div>
+    <div class="row">
+      <div class="t">jun 2023 → jan 2024<small>julius meinl living</small></div>
+      <div class="d"><b>Innovation manager</b> — guest-experience research, analytics pipelines, and The Julius Ecosystem: wallet-pass perks geo-anchored across a partner network. Lesson: in hospitality the product is the feeling of access.<span class="st s-sun">piloted</span></div>
+    </div>
+    <div class="row">
+      <div class="t">2022 → 2024<small>glideview</small></div>
+      <div class="d"><b>Founder</b> — AR product presentation and a 3D-to-web optimization pipeline; early reality-capture and gaussian-splatting work; pilots with an industrial client. Lesson: technology readiness ≠ market readiness.<span class="st s-sun">sunset</span></div>
+    </div>
+
+    <div class="two">
+      <div>
+        <h2>Education</h2>
+        <div class="row" style="grid-template-columns:22mm 1fr">
+          <div class="t">2025 →<small>in progress</small></div>
+          <div class="d"><b>MSc Business &amp; IT</b>, enterprise track — University of Twente. AI in business cases: TrenData agentic marketplace + MCP; decentralized digital twin.</div>
+        </div>
+        <div class="row" style="grid-template-columns:22mm 1fr">
+          <div class="t">→ 2025</div>
+          <div class="d"><b>BSc Creative Technology</b> — University of Twente. Published thesis: mapping process-mining artefacts to stakeholder information needs (essay.utwente.nl).</div>
+        </div>
+        <div class="row" style="grid-template-columns:22mm 1fr">
+          <div class="t">minor</div>
+          <div class="d"><b>Cloud Computing</b> — Illinois Institute of Technology. AWS provisioned through Terraform; infrastructure as code.</div>
+        </div>
+        <h2>Pressure tests</h2>
+        <div class="row" style="grid-template-columns:22mm 1fr">
+          <div class="t">2026</div>
+          <div class="d">Nebius Serverless AI Challenge — the geofence twin, solo, shipped early.</div>
+        </div>
+        <div class="row" style="grid-template-columns:22mm 1fr">
+          <div class="t">2023</div>
+          <div class="d">Insurance Challenges @ Achmea &amp; Allianz — age-aware cyber-risk education; on-prem LLM with retrieval for medical claim review. Covered by verzekeraars.nl.</div>
+        </div>
+      </div>
+      <div>
+        <h2>Stack</h2>
+        <div class="chiprow">
+          <span class="chip">langchain · langgraph</span><span class="chip">rag</span><span class="chip">knowledge graphs · rdf · sparql</span><span class="chip">python · fastapi</span><span class="chip">react · next · typescript</span><span class="chip">supabase · pgvector</span><span class="chip">terraform · aws</span><span class="chip">docker</span><span class="chip">claude code cli</span><span class="chip">mqtt · matter/thread</span>
+        </div>
+        <h2>Method</h2>
+        <div class="d" style="font-size:9pt;color:var(--dim);line-height:1.55">Spec-driven agentic development — my formalized framework: strategist / implementer / operator roles, TDD in layers, adversarial read-only verification, and a live run as the definition of done. Applied on deckgen and the Nebius twin; documented publicly.</div>
+        <h2>Press &amp; writing</h2>
+        <div class="d" style="font-size:8.6pt;color:var(--dim);line-height:1.7">
+          Interview — verzekeraars.nl (2023)<br>
+          Challenge report — verzekeraars.nl (2023)<br>
+          "Building a queryable semantic digital twin" — LinkedIn (2026)<br>
+          BSc thesis — UTwente essay repository (2025)
+        </div>
+        <h2>Human layer</h2>
+        <div class="d" style="font-size:9pt;color:var(--dim);line-height:1.55">Process Communication Model for team rapport; led team formation across all listed projects. EN (academic) · RU (native) · NL (A1). Photography, cross-country riding, Matter/Thread home lab.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span>ivan mikheev · cv v0.1 · set in ibm plex mono + instrument sans</span>
+    <span>full system: imikheev.dev · references on request</span>
+  </div>
+</div>
+</body>
+</html>

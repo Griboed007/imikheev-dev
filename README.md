@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# imikheev.dev — the digital twin
 
-## Getting Started
+Personal portfolio of Ivan Mikheev. The site is a digital twin of my work: every moving
+element maps to live state. Built with the spec-driven agentic framework it documents.
 
-First, run the development server:
+**Visual source of truth:** `design/reference/portfolio-mockup-v0.8.html` — open it in a
+browser. Behavior and tests come from proposals; look comes from the reference. When they
+conflict on behavior, the proposal wins; on look, the reference wins.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Next.js (App Router, TypeScript) · Tailwind (tokens from `design/tokens.md`) · git-versioned
+JSON telemetry (`content/telemetry/`, zod-gated) · MDX (`content/`) · GSAP (spark only) ·
+Vercel · domain `imikheev.dev`. **No database, no secrets — by decision (see 009).**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How this repo is built
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Nothing is implemented ad hoc. Every capability is an OpenSpec change under
+`openspec/changes/NNN-*/proposal.md`, executed in order by an implementer agent
+(Claude Code), independently verified read-only by a strategist, and gated by a human
+live run. The full method: `content/methods/spec-driven-agents.md`. The step-by-step
+execution script: `RUNBOOK.md`.
 
-## Learn More
+## Bootstrap (once)
 
-To learn more about Next.js, take a look at the following resources:
+1. `npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias "@/*"`
+   (run in an empty dir first, then overlay this scaffold — see RUNBOOK step 1).
+2. `cp .env.example .env.local` (no secrets — it stays that way by design).
+3. `claude` in the repo root; paste the session prompt from RUNBOOK.md.
+4. Implement changes 001 → 011 in order. Never skip the live DoD.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Directory map
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| path | what lives here | agent guide |
+| --- | --- | --- |
+| `app/` | routes, layouts, route handlers | `app/CLAUDE.md` |
+| `components/` | atomic-design UI | `components/CLAUDE.md` |
+| `lib/` | data access, graph data, telemetry | `lib/CLAUDE.md` |
+| `content/` | MDX case studies + methods | `content/CLAUDE.md` |
+| `public/photos/` | Instagram export pipeline | `public/photos/README.md` |
+| `design/` | tokens + reference mockups | `design/tokens.md` |
+| `openspec/` | proposals, durable specs | `openspec/project.md` |
