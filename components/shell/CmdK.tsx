@@ -33,6 +33,9 @@ export function CmdK() {
       }
     };
     const jump = (id: string) => () => jumpTo(id);
+    const navTo = (path: string) => () => {
+      window.location.href = path;
+    };
 
     return [
       { label: "go · home", hint: "view", run: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
@@ -49,6 +52,7 @@ export function CmdK() {
       { label: "jump · the story", hint: "~/story", run: jump("story") },
       { label: "jump · education", hint: "~/education", run: jump("education") },
       { label: "jump · hackathons", hint: "~/hackathons", run: jump("hackathons") },
+      { label: "read · spec-driven framework", hint: "~/methods", run: navTo("/methods/spec-driven-agents") },
       { label: "jump · toolbox", hint: "~/methods", run: jump("methods") },
       { label: "jump · statusline", hint: "~/statusline", run: jump("statusline-sec") },
       { label: "jump · off the clock", hint: "~/life", run: jump("life") },

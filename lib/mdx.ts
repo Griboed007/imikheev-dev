@@ -11,6 +11,7 @@ import { join } from "node:path";
 import { createElement, type ReactElement } from "react";
 import matter from "gray-matter";
 import { evaluate } from "@mdx-js/mdx";
+import remarkGfm from "remark-gfm";
 import * as runtime from "react/jsx-runtime";
 import type { Status } from "@/components/primitives/StatusChip";
 import { CaseH2 } from "@/components/case/CaseH2";
@@ -18,6 +19,7 @@ import { Pipe } from "@/components/case/Pipe";
 import { Stats, Stat } from "@/components/case/Stats";
 import { Changelog } from "@/components/case/Changelog";
 import { Callout } from "@/components/case/Callout";
+import { RolesTable, MethodCallout, LoopBlock } from "@/components/methods/mdx-blocks";
 import { slugify } from "@/lib/slug";
 
 export { slugify };
@@ -42,12 +44,27 @@ export interface CaseFrontmatter {
   links: Record<string, string>;
 }
 
+/**
+ * Names for the framework document's generic element map (007). The `.md` carries no custom
+ * JSX — plain markdown blocks are mapped to the mockup's styled components so the page stays
+ * a projection of the doc (RENDER it, never edit it). `h1` is suppressed because the layout
+ * owns the page title (taken from the doc's own h1); `h2` keeps the toc-anchor injector.
+ */
+export const methodComponents = {
+  h1: () => null,
+  h2: CaseH2,
+  table: RolesTable,
+  blockquote: MethodCallout,
+  pre: LoopBlock,
+} as const;
+
 export interface TocEntry {
   id: string;
   label: string;
 }
 
 const WORK_DIR = join(process.cwd(), "content", "work");
+const METHODS_DIR = join(process.cwd(), "content", "methods");
 
 /** Read + split a case file. Throws if missing — a broken slug must fail the build. */
 export function getCase(slug: string): {
@@ -87,5 +104,39 @@ export async function renderCase(slug: string): Promise<{
     frontmatter,
     toc: extractToc(content),
     content: createElement(MDXContent, { components: mdxComponents }),
+  };
+}
+
+/**
+ * Read a governing method doc. Unlike cases it has no frontmatter — the page title is the
+ * doc's own `# ` h1, so the page can never disagree with the document. Throws if missing.
+ */
+export function getMethod(slug: string): { title: string; content: string } {
+  const raw = readFileSync(join(METHODS_DIR, `${slug}.md`), "utf8");
+  const { content } = matter(raw);
+  const m = /^#[ \t]+(.+?)[ \t]*$/m.exec(content);
+  return { title: m ? m[1] : slug, content };
+}
+
+/**
+ * Compile a method doc through the SAME pipeline as cases (005), plus `remark-gfm` for the
+ * markdown roles table, against the generic `methodComponents` map. Returns the doc-derived
+ * title, the toc from its h2s, and the rendered element.
+ */
+export async function renderMethod(slug: string): Promise<{
+  title: string;
+  toc: TocEntry[];
+  content: ReactElement;
+}> {
+  const { title, content } = getMethod(slug);
+  const { default: MDXContent } = await evaluate(content, {
+    ...runtime,
+    remarkPlugins: [remarkGfm],
+    baseUrl: import.meta.url,
+  });
+  return {
+    title,
+    toc: extractToc(content),
+    content: createElement(MDXContent, { components: methodComponents }),
   };
 }

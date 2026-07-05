@@ -1,23 +1,27 @@
 import type { ReactNode } from "react";
 import { Wrap } from "@/components/primitives/Wrap";
-import { StatusChip } from "@/components/primitives/StatusChip";
-import { Ext } from "@/components/primitives/Ext";
-import type { CaseFrontmatter, TocEntry } from "@/lib/mdx";
+import type { TocEntry } from "@/lib/mdx";
 
 /**
- * The field-manual layout shared by every case study (app/CLAUDE.md — do not fork it).
- * Frontmatter drives the crumb, h1, and meta row; the MDX body renders inside <article>.
- * The toc is sticky; article `h2`s carry slug ids + scroll-margin (globals.css) so anchors
- * land clear of the 38px fixed bar.
+ * The field-manual layout shared by every case study AND the framework method page
+ * (app/CLAUDE.md — one layout, do not fork it). `base` drives the crumb (`~/work` vs
+ * `~/methods`); `meta` is a caller-built key/value row (frontmatter for cases, fixed chrome
+ * for methods) so the layout stays agnostic to either source. The MDX body renders inside
+ * <article>; the toc is sticky and article `h2`s carry slug ids + scroll-margin (globals.css)
+ * so anchors land clear of the 38px fixed bar.
  */
 export function CaseLayout({
+  base,
   slug,
-  frontmatter: fm,
+  title,
+  meta,
   toc,
   children,
 }: {
+  base: string;
   slug: string;
-  frontmatter: CaseFrontmatter;
+  title: string;
+  meta: { k: string; v: ReactNode }[];
   toc: TocEntry[];
   children: ReactNode;
 }) {
@@ -38,30 +42,15 @@ export function CaseLayout({
           </nav>
           <article>
             <div className="crumb">
-              ~/work/<b>{slug}</b>
+              ~/{base}/<b>{slug}</b>
             </div>
-            <h1>{fm.title}</h1>
+            <h1>{title}</h1>
             <div className="meta-row">
-              <span>
-                <span className="k">role</span> {fm.role}
-              </span>
-              <span>
-                <span className="k">context</span> {fm.context}
-              </span>
-              <span>
-                <span className="k">when</span> {fm.when}
-              </span>
-              <span>
-                <span className="k">status</span> <StatusChip status={fm.status} />
-              </span>
-              {fm.links?.article ? (
-                <span>
-                  <span className="k">writing</span>{" "}
-                  <Ext href={fm.links.article} className="text-amber">
-                    the article ↗
-                  </Ext>
+              {meta.map((m) => (
+                <span key={m.k}>
+                  <span className="k">{m.k}</span> {m.v}
                 </span>
-              ) : null}
+              ))}
             </div>
             {children}
           </article>

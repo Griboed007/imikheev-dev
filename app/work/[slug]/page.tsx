@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { renderCase, getCase } from "@/lib/mdx";
 import { CaseLayout } from "@/components/case/CaseLayout";
+import { StatusChip } from "@/components/primitives/StatusChip";
+import { Ext } from "@/components/primitives/Ext";
 
 /** Enumerate the content dir → one static route per case file. Only geofence-twin in 005. */
 export function generateStaticParams() {
@@ -38,9 +40,28 @@ export default async function CasePage({
   } catch {
     notFound();
   }
+  const fm = rendered.frontmatter;
+  const meta = [
+    { k: "role", v: fm.role },
+    { k: "context", v: fm.context },
+    { k: "when", v: fm.when },
+    { k: "status", v: <StatusChip status={fm.status} /> },
+    ...(fm.links?.article
+      ? [
+          {
+            k: "writing",
+            v: (
+              <Ext href={fm.links.article} className="text-amber">
+                the article ↗
+              </Ext>
+            ),
+          },
+        ]
+      : []),
+  ];
   return (
     <main className="relative z-[1]">
-      <CaseLayout slug={slug} frontmatter={rendered.frontmatter} toc={rendered.toc}>
+      <CaseLayout base="work" slug={slug} title={fm.title} meta={meta} toc={rendered.toc}>
         {rendered.content}
       </CaseLayout>
     </main>

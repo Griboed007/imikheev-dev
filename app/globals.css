@@ -682,8 +682,9 @@ button {
   max-width: 66ch;
   margin-bottom: 14px;
 }
-/* MDX compiles `**bold**` to <strong>, not <b> — match both so ported look applies. */
-.case article p :is(b, strong) {
+/* MDX compiles `**bold**` to <strong>, not <b> — match both so ported look applies. The
+ * framework doc (007) also bolds inside list items, so cover p and li. */
+.case article :is(p, li) :is(b, strong) {
   color: var(--ink);
   font-weight: 600;
 }
@@ -1077,10 +1078,313 @@ button.ext {
   color: var(--amber);
 }
 
+/* ---------- toolbox + method page (007) — ported from mockup ---------- */
+
+/* Framework doc (007) is list-heavy; cases used components, so raw lists were never styled.
+ * No mockup source (those sections were abridged to prose there) — derived from `.case
+ * article p` (same ink-dim, 66ch measure, vertical rhythm). */
+.case article :is(ul, ol) {
+  color: var(--ink-dim);
+  max-width: 66ch;
+  margin: 0 0 14px;
+  padding-left: 22px;
+}
+.case article li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+.case article ul {
+  list-style: disc;
+}
+.case article ol {
+  list-style: decimal;
+}
+.case article li::marker {
+  color: var(--ink-mute);
+}
+/* The full framework doc also carries `---` dividers (→ hr) and a `### ` (→ h3) that the
+ * abridged mockup never showed — no look-source, derived to sit quietly in the case rhythm. */
+.case article hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 36px 0;
+  max-width: 66ch;
+}
+.case article h3 {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 28px 0 10px;
+  scroll-margin-top: 70px;
+}
+/* A link inside a callout (the geofence case's "read the framework" seam). */
+.case article .callout a {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber);
+}
+/* Non-arrow fenced blocks fall back here (the doc has none today — LoopBlock guard). */
+.case article .mcode {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-dim);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 18px 0;
+  overflow-x: auto;
+}
+
+/* Roles table (mockup `.rtab`). GFM emits thead/tbody, the selectors below still match. */
+.rtab {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 16px 0;
+  max-width: 660px;
+}
+.rtab th {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-mute);
+  text-align: left;
+  padding: 8px 14px 8px 0;
+  border-bottom: 1px solid var(--line-strong);
+  font-weight: 400;
+}
+.rtab td {
+  padding: 9px 14px 9px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-dim);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.rtab td:first-child {
+  font-family: var(--mono);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* Toolbox grid + method cards. */
+.m-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.m-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+  background: rgba(21, 18, 16, 0.7);
+  transition: border-color 0.25s;
+}
+.m-card:hover {
+  border-color: var(--line-strong);
+}
+.m-card .slug {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber);
+  display: block;
+  margin-bottom: 10px;
+}
+.m-card h3 {
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-bottom: 8px;
+}
+.m-card p {
+  color: var(--ink-dim);
+  font-size: 0.93rem;
+}
+.mg {
+  display: block;
+  width: 100%;
+  height: 58px;
+  margin-bottom: 14px;
+}
+.mg .rail {
+  stroke: var(--line-strong);
+  stroke-width: 1.2;
+  fill: none;
+  transition: stroke 0.3s;
+}
+.m-card:hover .mg .rail {
+  stroke: var(--amber);
+}
+.mg .st {
+  fill: var(--panel2);
+  stroke: var(--line-strong);
+  transition: stroke 0.3s;
+}
+.m-card:hover .mg .st {
+  stroke: var(--amber);
+}
+.mg .tok {
+  fill: var(--amber);
+  animation: tok 3s linear infinite;
+}
+.m-card:hover .mg .tok {
+  animation-duration: 1.1s;
+}
+@keyframes tok {
+  0% {
+    transform: translateX(0);
+  }
+  45% {
+    transform: translateX(104px);
+  }
+  55% {
+    transform: translateX(104px);
+  }
+  100% {
+    transform: translateX(208px);
+  }
+}
+.mg .w1 {
+  stroke: var(--ink-mute);
+  fill: none;
+  stroke-width: 1.6;
+}
+.mg .w2 {
+  stroke: var(--amber);
+  fill: none;
+  stroke-width: 1.6;
+  transform: translateY(12px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.m-card:hover .mg .w2 {
+  transform: translateY(0);
+}
+.mg .fan {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+}
+.mg .f1 {
+  transform: rotate(-10deg);
+}
+.mg .f3 {
+  transform: rotate(10deg);
+}
+.m-card:hover .f1 {
+  transform: rotate(-24deg) translateX(-6px);
+}
+.m-card:hover .f3 {
+  transform: rotate(24deg) translateX(6px);
+}
+.m-card:hover .f2 {
+  transform: translateY(-5px);
+}
+.mg .cardr {
+  fill: var(--panel2);
+  stroke: var(--line-strong);
+}
+.mg .strata {
+  stroke: var(--line-strong);
+  stroke-width: 1.2;
+  transition: stroke 0.3s;
+}
+.m-card:hover .mg .strata {
+  stroke: var(--amber);
+}
+.mg .drill {
+  fill: var(--amber);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.m-card:hover .mg .drill {
+  transform: translateY(26px);
+}
+.mg .flat {
+  stroke: var(--ink-mute);
+  stroke-width: 1.6;
+  fill: none;
+  transition: opacity 0.4s;
+}
+.mg .spike {
+  stroke: var(--amber);
+  stroke-width: 1.6;
+  fill: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.m-card:hover .mg .flat {
+  opacity: 0.25;
+}
+.m-card:hover .mg .spike {
+  opacity: 1;
+}
+.mg .mess {
+  stroke: var(--ink-mute);
+  stroke-width: 1.4;
+  fill: none;
+  transition: opacity 0.4s;
+}
+.mg .clean {
+  stroke: var(--amber);
+  stroke-width: 1.6;
+  fill: none;
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+  transition: stroke-dashoffset 0.9s ease;
+}
+.m-card:hover .mg .clean {
+  stroke-dashoffset: 0;
+}
+/* method-card link (mockup `.plinks`). */
+.m-card .plinks {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.m-card .plinks a {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  transition: color 0.2s;
+}
+.m-card .plinks a:hover {
+  color: var(--amber);
+}
+
+/* Stack strip. */
+.stack {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.s-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: rgba(21, 18, 16, 0.7);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.s-card:hover {
+  border-color: var(--amber);
+  transform: translateY(-2px);
+}
+.s-card .nm {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+}
+.s-card .tg {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-mute);
+  margin-top: 4px;
+}
+
 /*
  * Reduced-motion kill switch (tokens.md §motion — a requirement, not polish).
  * Neutralizes every transition/animation/loop globally — including the card hover fills
- * (dgfill / tk-mover), the show-all fadeup, and the counter band. The count-up is
+ * (dgfill / tk-mover), the show-all fadeup, the counter band, and the toolbox glyphs
+ * (the token-rail loop and every method-card hover). The count-up is
  * JS-driven so the CSS net can't reach it: <CounterBand> branches on reduced motion and
  * jumps straight to the final values. Other per-component logic (<Reveal>, <WordCycle>,
  * <Orb>) also renders its final state directly, and <StarTrail> does not mount at all.
