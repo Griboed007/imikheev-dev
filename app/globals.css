@@ -77,6 +77,12 @@ button {
   border-radius: 2px;
 }
 
+/* Ticker edge fade (mockup .sl-tick / .tickbar mask). */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
 /*
  * Reduced-motion kill switch (tokens.md §motion — a requirement, not polish).
  * Neutralizes every transition/animation/loop globally; per-component logic

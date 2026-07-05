@@ -49,6 +49,32 @@ const config: Config = {
       },
       borderRadius: { ...tokens.radii },
       transitionTimingFunction: { ...tokens.easing },
+      keyframes: {
+        // Ticker marquee: track is duplicated content, so -50% is a seamless loop point.
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+        // Clock pulse dot (tokens.md §motion: pulse 2.4s).
+        "dot-pulse": {
+          "0%,100%": { opacity: "1" },
+          "50%": { opacity: ".35" },
+        },
+        // CTA beat (tokens.md §motion: border/color beat 3.2s).
+        beat: {
+          "0%,100%": {
+            borderColor: "var(--line-strong)",
+            color: "var(--ink-dim)",
+          },
+          "50%": { borderColor: "var(--amber)", color: "var(--amber)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 42s linear infinite",
+        "marquee-mobile": "marquee 36s linear infinite",
+        "dot-pulse": "dot-pulse 2.4s ease-in-out infinite",
+        beat: "beat 3.2s ease-in-out infinite",
+      },
     },
   },
 };
