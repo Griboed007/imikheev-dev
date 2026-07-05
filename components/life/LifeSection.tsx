@@ -9,7 +9,6 @@ import {
   getPhotos,
 } from "@/lib/telemetry";
 import { IgShuffle } from "./IgShuffle";
-import { MoreLife } from "./MoreLife";
 import {
   BookGlyph,
   ChargeHyveLogo,
@@ -147,8 +146,6 @@ export function LifeSection() {
           </div>
         ))}
       </div>
-
-      <MoreLife />
     </Section>
   );
 }
