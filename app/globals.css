@@ -206,6 +206,122 @@ button {
   }
 }
 
+/* ---------- system map (004) — ported from mockup #bgmap / .map-panel / #graph ---------- */
+
+/* Background twin: fixed full-viewport, blurred, below content (z-0 < content z-1).
+ * Presence-gated: `.on` (added while #map is near the viewport) fades it to .34. */
+.bgmap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(5px);
+  opacity: 0;
+  transition: opacity .9s ease;
+  pointer-events: none;
+}
+.bgmap.on {
+  opacity: .34;
+}
+
+.map-panel {
+  background: rgba(26, 22, 18, .94);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 10px 10px 0;
+  overflow: hidden;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, .55);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px 14px 4px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-mute);
+}
+.legend i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.legend .l-sys i {
+  border: 1.5px solid var(--amber);
+  background: var(--panel);
+}
+.legend .l-dom i {
+  background: var(--line-strong);
+}
+.legend .l-live i {
+  background: var(--amber);
+}
+
+/* The rAF owns node geometry + opacity (depth × dim/hot); these classes own ONLY
+ * stroke/fill/color, so the two never fight (proposal §Design — the v0.3 lesson). */
+.system-graph {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.system-graph .edge {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  transition: stroke .25s, opacity .25s;
+}
+.system-graph .node {
+  cursor: pointer;
+}
+.system-graph .node circle {
+  transition: stroke .2s, fill .2s;
+}
+.system-graph .node text {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--ink-dim);
+  transition: fill .2s;
+}
+/* Edge opacity IS class-driven (the rAF writes edge geometry only, never edge opacity). */
+.system-graph.focus .edge {
+  opacity: .14;
+}
+.system-graph.focus .edge.hot {
+  opacity: 1;
+  stroke: var(--amber);
+}
+.system-graph .node.hot circle.core {
+  stroke: var(--amber);
+  stroke-width: 2;
+}
+.system-graph .node.hot text {
+  fill: var(--ink);
+}
+.system-graph .node.sel circle.core {
+  stroke: var(--amber);
+  stroke-width: 2.4;
+}
+
+.node-detail {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 24px;
+  align-items: start;
+  min-height: 96px;
+  margin-top: 8px;
+  padding: 18px 14px;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 760px) {
+  .node-detail {
+    grid-template-columns: 1fr;
+  }
+}
+
 /*
  * Reduced-motion kill switch (tokens.md §motion — a requirement, not polish).
  * Neutralizes every transition/animation/loop globally; per-component logic
