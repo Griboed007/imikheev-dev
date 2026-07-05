@@ -1,26 +1,94 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
+/*
+ * Token custom properties — mirror of `tokens` in tailwind.config.ts, using the
+ * mockup's short names (design/reference/portfolio-mockup-v0.8.html :root) so that
+ * component CSS ported in later changes references var(--amber) verbatim.
+ * A parity test (test/tokens.test.ts) fails if any token value drifts from the config.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0E0C0A;
+  --panel: #151210;
+  --panel2: #1C1814;
+  --line: rgba(237,230,218,.10);
+  --line-strong: rgba(237,230,218,.20);
+  --ink: #EDE6DA;
+  --ink-dim: rgba(237,230,218,.64);
+  --ink-mute: rgba(237,230,218,.38);
+  --amber: #F5A742;
+  --amber-bg: rgba(245,167,66,.12);
+  --teal: #3ECFAE;
+  --teal-bg: rgba(62,207,174,.12);
+  --clay: #DA7756;
+  --dg-blue: #6B9BFF;
+  --tk-violet: #8B5CF6;
+  --tanwall: #C89058;
+  --mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: var(--font-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease-reveal: cubic-bezier(.16, 1, .3, 1);
+  --maxw: 1060px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* html carries the background too — mobile webview parity (root CLAUDE.md / tokens.md). */
+html {
+  overflow-x: hidden;
+  background: var(--bg);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16.5px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--amber);
+  color: #1A130A;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/*
+ * Reduced-motion kill switch (tokens.md §motion — a requirement, not polish).
+ * Neutralizes every transition/animation/loop globally; per-component logic
+ * (e.g. <Reveal>) also renders its final state directly under this preference.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

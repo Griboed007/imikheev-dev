@@ -52,3 +52,12 @@ the proposal's final task group, on a Vercel preview URL. A green Track A alone 
 - (2026-07) This environment's shell may not brace-expand; write explicit paths in scripts.
 - (2026-07) Decision: no DB. Supabase free slots host Deckgen + Tracker (kept alive);
   free-tier projects also pause after 7 idle days — wrong failure mode for a portfolio.
+- (2026-07) Turbopack panics locally because the repo path contains Cyrillic
+  (`…\Документы\…`): "byte index is not a char boundary". Local `next dev`/`next build`
+  must use `--webpack` (see `dev:webpack`/`build:webpack` scripts). Vercel builds on an
+  ASCII Linux path, so Turbopack is fine there. Durable fix: move the repo to an
+  ASCII-only path (also avoids OneDrive syncing `node_modules`/`.next`).
+- (2026-07) Tailwind is v4 (CSS-first) but the stack doc says `tailwind.config.ts`.
+  Reconciled: tokens live in `tailwind.config.ts` (single source), loaded via
+  `@config "../tailwind.config.ts"` in `globals.css`; raw CSS vars mirrored into `:root`
+  and guarded by a parity test. Consider updating the stack note to say so.
