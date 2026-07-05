@@ -6,6 +6,9 @@ import { BgMap } from "@/components/map/BgMap";
 import { SystemMapSection } from "@/components/map/SystemMapSection";
 import { CounterBand } from "@/components/cards/CounterBand";
 import { WorkSection } from "@/components/cards/WorkSection";
+import { StorySection } from "@/components/story/StorySection";
+import { EducationSection } from "@/components/education/EducationSection";
+import { HackathonsSection } from "@/components/hackathons/HackathonsSection";
 
 /**
  * Home. Layering (the v0.7 fix): BgMap is a fixed canvas at z-0, StarTrail a fixed canvas
@@ -24,6 +27,9 @@ export default function Home() {
         <SystemMapSection />
         <CounterBand />
         <WorkSection />
+        <StorySection />
+        <EducationSection />
+        <HackathonsSection />
       </main>
     </>
   );

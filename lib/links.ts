@@ -13,8 +13,14 @@ export const links = {
     "https://www.linkedin.com/pulse/building-queryable-semantic-digital-twin-vehicle-nebius-ivan-mikheev-achme/",
   thesisPdf:
     "https://essay.utwente.nl/fileshare/file/107619/Mikheev_BA_CreativeTechnology.pdf",
+  // Achmea Insurance Challenge 2023 — the two verzekeraars.nl press records (challenge +
+  // the interview with me); the SauronEye/Earthian endorsement post (story ledger).
+  achmeaChallenge:
+    "https://www.verzekeraars.nl/publicaties/actueel/studenten-denken-mee-over-hoe-verzekeringsklant-geen-cyberslachtoffer-wordt",
   pressInterview:
     "https://www.verzekeraars.nl/publicaties/actueel/verzekeraars-doen-meer-dan-ik-in-eerste-instantie-dacht",
+  endorsement:
+    "https://www.linkedin.com/posts/david-swells_ai-greenfinancing-creditintelligence-activity-7188625999629070336-89Og",
   beans: "https://fancybeans.nl/products/sweet-peach",
 } as const;
 
