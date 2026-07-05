@@ -4,6 +4,8 @@ import { Hero } from "@/components/hero/Hero";
 import { StarTrail } from "@/components/hero/StarTrail";
 import { BgMap } from "@/components/map/BgMap";
 import { SystemMapSection } from "@/components/map/SystemMapSection";
+import { CounterBand } from "@/components/cards/CounterBand";
+import { WorkSection } from "@/components/cards/WorkSection";
 
 /**
  * Home. Layering (the v0.7 fix): BgMap is a fixed canvas at z-0, StarTrail a fixed canvas
@@ -20,6 +22,8 @@ export default function Home() {
         <Tickbar items={ticker} />
         <Hero />
         <SystemMapSection />
+        <CounterBand />
+        <WorkSection />
       </main>
     </>
   );

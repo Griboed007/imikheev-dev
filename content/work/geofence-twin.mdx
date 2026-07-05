@@ -1,0 +1,59 @@
+---
+title: Semantic digital twin for geofence anomaly detection
+role: architect · builder
+context: Nebius Serverless AI Challenge
+when: jun 2026
+status: shipped
+links:
+  article: https://www.linkedin.com/pulse/building-queryable-semantic-digital-twin-vehicle-nebius-ivan-mikheev-achme/
+---
+
+## Overview
+
+Fleet telemetry tells you where a vehicle is. It rarely tells you whether that's **normal**. This project builds a semantic digital twin over GPS trajectory data: a hybrid model predicts where a vehicle should be next and scores deviations, while a SAREF/RDF knowledge graph makes every observation, zone, and anomaly queryable in SPARQL.
+
+The bet: anomaly detection gets dramatically more useful when its outputs live in a knowledge graph instead of a log file — because then the question "which vehicles crossed which zones abnormally, and when" is one query, not a data-engineering project.
+
+## The system
+
+<Pipe
+  steps={[
+    { label: "gps telemetry" },
+    { label: "enrichment job", sub: "batch · containerized" },
+    { label: "knowledge graph", sub: "saref/rdf · sparql" },
+    { label: "inference endpoint", sub: "fastapi · anomaly scores" },
+  ]}
+/>
+
+A batch job enriches raw trajectories into typed observations and writes them as RDF triples; the endpoint serves the hybrid prediction/scoring model. Everything runs as containers on Nebius serverless — the whole pipeline is reproducible from a clean account.
+
+## Results
+
+<Stats>
+  <Stat n="0.8247" l="roc-auc, anomaly scoring" />
+  <Stat n="24 380" l="triples in the live graph" />
+  <Stat n="1.9 s" l="full batch enrichment run" />
+</Stats>
+
+## How it was built
+
+<Callout title="method · spec-driven-agents">
+  Built end-to-end with my spec-driven agentic framework: strategist / implementer /
+  operator roles, per-module guardrail files, adversarial read-only verification of every
+  change, and a live run as the definition of done.
+</Callout>
+
+## Changelog
+
+<Changelog
+  entries={[
+    ["2026-07", "public write-up published — building a queryable semantic digital twin (linkedin)"],
+    ["2026-06-30", "submitted to the Physical AI track, ahead of deadline"],
+    ["2026-06-29", "live run green — endpoint, job, and graph verified from clean deploy"],
+    ["2026-06-24", "hybrid model selected over pure sequence baseline"],
+  ]}
+/>
+
+## The lesson
+
+Digital twins earn their keep at the **semantic** layer. The model finds the anomaly; the graph makes it answerable. Most telemetry projects stop one layer too early.

@@ -322,11 +322,476 @@ button {
   }
 }
 
+/* ---------- counter band + work cards (005) — ported from mockup .band / .cards ---------- */
+
+/* Counter band: full-width. Figures are teal (verified outcomes); `.live` is amber (now) —
+ * the color-semantics split (root CLAUDE.md), enforced in review. */
+.band {
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.band-wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  padding: 72px 0;
+}
+.big .num {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  letter-spacing: -0.02em;
+  color: var(--teal);
+  line-height: 1.1;
+}
+.big.live .num {
+  color: var(--amber);
+}
+.big .lbl {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  margin-top: 8px;
+}
+
+/* Cards grid + cursor-spotlight base (--mx/--my written by the Card client component). */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  color: var(--ink);
+  transition: border-color 0.25s, transform 0.25s;
+  background: radial-gradient(
+      320px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(245, 167, 66, 0.09),
+      transparent 65%
+    ),
+    var(--panel);
+}
+.card:hover {
+  border-color: var(--amber);
+  transform: translateY(-2px);
+}
+.card .slug {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber);
+}
+.card h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+.card p {
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+  flex: 1;
+}
+.metrics {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--teal);
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+.card .go {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  transition: color 0.2s;
+}
+.card:hover .go {
+  color: var(--amber);
+}
+.card .fn {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-mute);
+}
+/* Show-all reveal (mockup): xtra cards hidden until the grid opens. */
+.card.xtra {
+  display: none;
+}
+.cards.open .card.xtra {
+  display: flex;
+  animation: fadeup 0.5s ease both;
+}
+@keyframes fadeup {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* deckgen skin — blueprint blue (--dg-blue) confined to .card.dg (brand skins never leak). */
+.card.dg {
+  border-color: rgba(107, 155, 255, 0.22);
+  background: radial-gradient(
+      320px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(107, 155, 255, 0.1),
+      transparent 65%
+    ),
+    #10141c;
+}
+.card.dg:hover {
+  border-color: var(--dg-blue);
+}
+.card.dg .slug {
+  color: var(--dg-blue);
+}
+.card.dg sup {
+  color: var(--dg-blue);
+  font-family: var(--mono);
+  font-size: 0.6em;
+}
+.card.dg .metrics {
+  color: var(--dg-blue);
+  border-color: rgba(107, 155, 255, 0.18);
+}
+.dg-cells {
+  display: flex;
+  gap: 3px;
+}
+.dg-cells i {
+  flex: 1;
+  height: 5px;
+  border-radius: 2px;
+  background: rgba(107, 155, 255, 0.16);
+}
+/* Pipeline cells fill left→right on hover (the Live DoD seam). */
+.card.dg:hover .dg-cells i {
+  animation: dgfill 0.9s ease both;
+}
+.card.dg:hover .dg-cells i:nth-child(2) {
+  animation-delay: 0.07s;
+}
+.card.dg:hover .dg-cells i:nth-child(3) {
+  animation-delay: 0.14s;
+}
+.card.dg:hover .dg-cells i:nth-child(4) {
+  animation-delay: 0.21s;
+}
+.card.dg:hover .dg-cells i:nth-child(5) {
+  animation-delay: 0.28s;
+}
+.card.dg:hover .dg-cells i:nth-child(6) {
+  animation-delay: 0.35s;
+}
+.card.dg:hover .dg-cells i:nth-child(7) {
+  animation-delay: 0.42s;
+}
+.card.dg:hover .dg-cells i:nth-child(8) {
+  animation-delay: 0.49s;
+}
+.card.dg:hover .dg-cells i:nth-child(9) {
+  animation-delay: 0.56s;
+}
+@keyframes dgfill {
+  to {
+    background: var(--dg-blue);
+  }
+}
+.dg-verify {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dg-blue);
+  background: rgba(107, 155, 255, 0.12);
+  border-left: 2px solid var(--dg-blue);
+  padding: 6px 10px;
+  border-radius: 0 6px 6px 0;
+}
+
+/* tracker skin — violet (--tk-violet) confined to .card.tk. */
+.card.tk {
+  border-color: rgba(139, 92, 246, 0.24);
+  background: radial-gradient(
+      320px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(139, 92, 246, 0.12),
+      transparent 65%
+    ),
+    #100e16;
+}
+.card.tk:hover {
+  border-color: var(--tk-violet);
+}
+.card.tk .slug {
+  color: var(--tk-violet);
+}
+.card.tk .metrics {
+  color: var(--tk-violet);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+.tk-board {
+  display: flex;
+  gap: 6px;
+  height: 58px;
+}
+.tk-col {
+  flex: 1;
+  border: 1px solid rgba(237, 230, 218, 0.09);
+  border-radius: 5px;
+  padding: 6px 5px 0;
+  position: relative;
+}
+.tk-col::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 5px 5px 0 0;
+}
+.tk-col.c1::before {
+  background: var(--tk-violet);
+}
+.tk-col.c2::before {
+  background: #5b8def;
+}
+.tk-col.c3::before {
+  background: #e8a33d;
+}
+.tk-col.c4::before {
+  background: #34d399;
+}
+.tk-chip {
+  height: 9px;
+  border-radius: 3px;
+  background: rgba(139, 92, 246, 0.5);
+  margin-bottom: 4px;
+}
+/* The chip crosses the board To-Do→Done and turns green on hover (the Live DoD seam). */
+.tk-mover {
+  position: absolute;
+  top: 8px;
+  left: 6px;
+  right: auto;
+  width: calc(100% - 12px);
+  height: 9px;
+  border-radius: 3px;
+  background: var(--tk-violet);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), background 0.8s;
+}
+.card.tk:hover .tk-mover {
+  transform: translateX(calc(300% + 18px));
+  background: #34d399;
+}
+.tk-ai {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: #fff;
+  background: var(--tk-violet);
+  border-radius: 4px;
+  padding: 2px 8px;
+  align-self: flex-start;
+}
+
+/* ---------- case pages (005) — ported from mockup .case / .toc / .pipe / .chlog ---------- */
+.case {
+  padding-top: 86px;
+}
+.case-grid {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+  margin-top: 28px;
+}
+.toc {
+  position: sticky;
+  top: 86px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+.toc .t {
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+.toc a {
+  display: block;
+  color: var(--ink-dim);
+  padding: 5px 0 5px 12px;
+  border-left: 1px solid var(--line);
+  transition: color 0.2s, border-color 0.2s;
+}
+.toc a:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+.crumb {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-mute);
+  margin-bottom: 20px;
+}
+.crumb b {
+  color: var(--amber);
+  font-weight: 400;
+}
+.case h1 {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-dim);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+  margin: 24px 0 8px;
+}
+.meta-row .k {
+  color: var(--ink-mute);
+}
+/* article headings carry slug ids + scroll-margin so toc anchors clear the 38px fixed bar. */
+.case article h2 {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 1.15rem;
+  margin: 44px 0 14px;
+  scroll-margin-top: 70px;
+}
+.case article p {
+  color: var(--ink-dim);
+  max-width: 66ch;
+  margin-bottom: 14px;
+}
+/* MDX compiles `**bold**` to <strong>, not <b> — match both so ported look applies. */
+.case article p :is(b, strong) {
+  color: var(--ink);
+  font-weight: 600;
+}
+.callout {
+  border-left: 2px solid var(--amber);
+  background: var(--panel);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin: 20px 0;
+  max-width: 66ch;
+}
+.callout .t {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+.callout p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.pipe {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 18px 10px;
+  margin: 18px 0;
+}
+.pipe svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.pipe text {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--ink-dim);
+}
+.pipe .bx {
+  fill: var(--panel2);
+  stroke: var(--line-strong);
+}
+.pipe .fl {
+  stroke: var(--amber);
+  stroke-width: 1.2;
+  marker-end: url(#pipe-arr);
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+  max-width: 640px;
+}
+.stat {
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.stat .n {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--teal);
+}
+.stat .l {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  margin-top: 4px;
+}
+.chlog {
+  font-family: var(--mono);
+  font-size: 13px;
+  max-width: 640px;
+}
+.chlog div {
+  display: flex;
+  gap: 18px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.chlog span:first-child {
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+.backlink {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-dim);
+}
+.backlink:hover {
+  color: var(--amber);
+}
+@media (max-width: 760px) {
+  .case-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
 /*
  * Reduced-motion kill switch (tokens.md §motion — a requirement, not polish).
- * Neutralizes every transition/animation/loop globally; per-component logic
- * (e.g. <Reveal>, <WordCycle>, <Orb>) also renders its final state directly, and
- * <StarTrail> does not mount at all under this preference.
+ * Neutralizes every transition/animation/loop globally — including the card hover fills
+ * (dgfill / tk-mover), the show-all fadeup, and the counter band. The count-up is
+ * JS-driven so the CSS net can't reach it: <CounterBand> branches on reduced motion and
+ * jumps straight to the final values. Other per-component logic (<Reveal>, <WordCycle>,
+ * <Orb>) also renders its final state directly, and <StarTrail> does not mount at all.
  */
 @media (prefers-reduced-motion: reduce) {
   *,

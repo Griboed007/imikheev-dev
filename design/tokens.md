@@ -57,12 +57,14 @@ wrap 1060px / 24px gutters · section pad 104px (72 mobile) · radius 12 (cards)
 | spotlight | 320px radial amber .09 at cursor |
 | small map | yaw `sin(t·.00022)·0.3`, depth scale/opacity .35–1, drift amp 4 |
 | bg map | full rotation .0016/f, blur 5px, opacity .34, gated to `#map` proximity |
-| counters | 1.5s ease-out-cubic, once |
+| counters | 1.5s ease-out-cubic, once (JS — reduced jumps to final value) |
+| show-all | xtra cards fade+rise .5s on grid open |
 | glyph hovers | .45–.5s same bezier (drill, waves, fan, cells, board chip, spokes 1.2s/180°, aperture .6s/60°) |
 | spark | rays scale-breathe 2.6s staggered (CSS); GSAP `+=360` 1.5s power2.inOut every ~8s |
 
 Reduced motion: reveals instant; word static "adoption."; orb one frame; trail/bg map/
-ticker/beats/spark loops off.
+ticker/beats/spark loops off; counters show final values immediately; card hover fills
+(dgfill/tk-mover) and show-all fadeup off.
 
 ## Never
 
