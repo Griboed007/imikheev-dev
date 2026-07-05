@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
+import { baseMetadata } from "@/lib/seo";
 import { getTicker, getFocus } from "@/lib/telemetry";
 import { ToastProvider } from "@/components/shell/ToastProvider";
 import { Statusline } from "@/components/shell/Statusline";
@@ -22,11 +25,7 @@ const sans = Instrument_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Ivan Mikheev — I engineer adoption",
-  description:
-    "Interfaces between intelligent systems and the people who use them: protocols, products, teams.",
-};
+export const metadata: Metadata = baseMetadata;
 
 export default function RootLayout({
   children,
@@ -43,6 +42,8 @@ export default function RootLayout({
           <Footer />
           <CmdK />
         </ToastProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

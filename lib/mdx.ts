@@ -6,7 +6,7 @@
  * one function is what lets vitest exercise the whole pipeline. Static prerender runs this
  * at build time in Node (evaluate's `new Function` is fine there — no edge, no CSP).
  */
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { createElement, type ReactElement } from "react";
 import matter from "gray-matter";
@@ -65,6 +65,22 @@ export interface TocEntry {
 
 const WORK_DIR = join(process.cwd(), "content", "work");
 const METHODS_DIR = join(process.cwd(), "content", "methods");
+
+/**
+ * Enumerate content slugs — the SINGLE source for both the route params
+ * (`generateStaticParams`) and the sitemap, so the two can never drift (011). Cases are
+ * `.mdx`, governing method docs are `.md`.
+ */
+export function listCaseSlugs(): string[] {
+  return readdirSync(WORK_DIR)
+    .filter((f) => f.endsWith(".mdx"))
+    .map((f) => f.replace(/\.mdx$/, ""));
+}
+export function listMethodSlugs(): string[] {
+  return readdirSync(METHODS_DIR)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => f.replace(/\.md$/, ""));
+}
 
 /** Read + split a case file. Throws if missing — a broken slug must fail the build. */
 export function getCase(slug: string): {

@@ -1,17 +1,13 @@
-import { readdirSync } from "node:fs";
-import { join } from "node:path";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { renderCase, getCase } from "@/lib/mdx";
+import { renderCase, getCase, listCaseSlugs } from "@/lib/mdx";
 import { CaseLayout } from "@/components/case/CaseLayout";
 import { StatusChip } from "@/components/primitives/StatusChip";
 import { Ext } from "@/components/primitives/Ext";
 
-/** Enumerate the content dir → one static route per case file. Only geofence-twin in 005. */
+/** One static route per case file — shared slug source with the sitemap (lib/mdx). */
 export function generateStaticParams() {
-  return readdirSync(join(process.cwd(), "content", "work"))
-    .filter((f) => f.endsWith(".mdx"))
-    .map((f) => ({ slug: f.replace(/\.mdx$/, "") }));
+  return listCaseSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -22,7 +18,13 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const { frontmatter } = getCase(slug);
-    return { title: `${frontmatter.title} — Ivan Mikheev` };
+    // Bare title — the layout's `%s — Ivan Mikheev` template suffixes it. Canonical points
+    // at this route (overrides the layout's `/` default so cases don't self-canonicalize home).
+    return {
+      title: frontmatter.title,
+      description: `${frontmatter.role} · ${frontmatter.context}`,
+      alternates: { canonical: `/work/${slug}` },
+    };
   } catch {
     return {};
   }

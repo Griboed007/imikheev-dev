@@ -1,16 +1,12 @@
-import { readdirSync } from "node:fs";
-import { join } from "node:path";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { renderMethod, getMethod } from "@/lib/mdx";
+import { renderMethod, getMethod, listMethodSlugs } from "@/lib/mdx";
 import { CaseLayout } from "@/components/case/CaseLayout";
 import { StatusChip } from "@/components/primitives/StatusChip";
 
-/** One static route per governing doc in content/methods (only spec-driven-agents today). */
+/** One static route per governing doc — shared slug source with the sitemap (lib/mdx). */
 export function generateStaticParams() {
-  return readdirSync(join(process.cwd(), "content", "methods"))
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => ({ slug: f.replace(/\.md$/, "") }));
+  return listMethodSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -21,7 +17,8 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const { title } = getMethod(slug);
-    return { title: `${title} — Ivan Mikheev` };
+    // Bare title (layout template suffixes it); canonical at this route.
+    return { title, alternates: { canonical: `/methods/${slug}` } };
   } catch {
     return {};
   }
