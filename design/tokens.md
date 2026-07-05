@@ -65,11 +65,14 @@ wrap 1060px / 24px gutters · section pad 104px (72 mobile) · radius 12 (cards)
 | toolbox glyphs | token travels the rail 3s linear loop (→1.1s on hover); waves/fan/drill/pulse/scribble hovers .3–.9s same bezier |
 | monogram | static dot-matrix canvas (no motion); redraws on fonts.ready + resize |
 | spark | rays scale-breathe 2.6s staggered (CSS); GSAP `+=360` 1.5s power2.inOut every ~8s |
+| life tiles | photo cross-fade 1s + shuffle every 3.8s (JS — reduced holds the lead frame); steam dashes 2.6s loop (→1.2s hover); ride route draws 1.1s on hover; wheel spokes 1.2s/180°, aperture .6s/60°, book crown/bulb/spine hovers .3–1s; live-dot pulse 2.4s (see caret/dots) |
 
 Reduced motion: reveals instant; word static "adoption."; orb one frame; trail/bg map/
 ticker/beats/spark loops off; counters show final values immediately; card hover fills
 (dgfill/tk-mover) and show-all fadeup off; edu/hack/toolbox glyph hovers and the fdot/spinme/
-tok loops off (monograms are static, unaffected).
+tok loops off (monograms are static, unaffected); the life section freezes — the photo
+shuffle interval short-circuits (holds the lead frame + its EXIF), steam/ride-draw/wheel/
+aperture/book hovers and the live-dot pulse are stilled by the CSS net.
 
 ## Never
 

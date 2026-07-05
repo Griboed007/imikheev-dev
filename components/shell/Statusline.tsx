@@ -23,7 +23,13 @@ const SEG_DESKTOP = `hidden min-[761px]:flex ${SEG_BASE}`;
  * viewport-width fix from the mockups. On ≤760px the middle segments and inline ticker
  * hide (the static Tickbar in the home flow carries the ticker there instead).
  */
-export function Statusline({ ticker }: { ticker: TickerItem[] }) {
+export function Statusline({
+  ticker,
+  focus = "agentic-platforms",
+}: {
+  ticker: TickerItem[];
+  focus?: string;
+}) {
   const { toast } = useToast();
   const [time, setTime] = useState<string | null>(null);
 
@@ -48,7 +54,7 @@ export function Statusline({ ticker }: { ticker: TickerItem[] }) {
       <span className={SEG_DESKTOP}>~/portfolio</span>
       <span className={SEG_DESKTOP}>⎇ main</span>
       <span className={SEG_DESKTOP}>
-        focus <span className="text-amber">agentic-platforms</span>
+        focus <span className="text-amber">{focus}</span>
       </span>
 
       <div className="hidden min-w-0 flex-1 px-3 min-[761px]:block">

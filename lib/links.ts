@@ -22,6 +22,9 @@ export const links = {
   endorsement:
     "https://www.linkedin.com/posts/david-swells_ai-greenfinancing-creditintelligence-activity-7188625999629070336-89Og",
   beans: "https://fancybeans.nl/products/sweet-peach",
+  // ChargeHyve field-notes tile — the "six founders" LinkedIn post (NullSpace visit).
+  chargehyvePost:
+    "https://www.linkedin.com/posts/ivan-mikheev-313b53234_ja-het-is-gelukt-zes-founders-vonden-vandaag-activity-7476633546309427200-YZ4t",
 } as const;
 
 export const mailto = (subject?: string): string =>

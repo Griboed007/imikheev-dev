@@ -1,0 +1,19 @@
+{
+  "books": [
+    {
+      "title": "The 48 Laws of Power",
+      "note": "robert greene — reading now",
+      "glyph": "crown"
+    },
+    {
+      "title": "Genius Inc",
+      "note": "reading now — the team-genius book behind my methods",
+      "glyph": "bulb"
+    },
+    {
+      "title": "The Lean Startup",
+      "note": "eric ries — re-read; build–measure–learn spins on hover",
+      "glyph": "loop"
+    }
+  ]
+}

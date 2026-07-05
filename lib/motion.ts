@@ -18,6 +18,8 @@ export const EASE_REVEAL = "cubic-bezier(.16,1,.3,1)";
  *  - ticker             → off (no marquee)
  *  - CTA/accent beats   → off
  *  - spark loop         → off
+ *  - life photo shuffle → holds the lead frame (interval short-circuited in <IgShuffle>)
+ *  - life tile hovers   → steam / ride-draw / wheel / aperture / book spins + live-dot off
  * The global CSS rule in globals.css enforces the blanket kill; components additionally
  * short-circuit their own logic via useReducedMotion().
  */

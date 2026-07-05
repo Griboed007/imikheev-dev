@@ -11,6 +11,7 @@ import { EducationSection } from "@/components/education/EducationSection";
 import { HackathonsSection } from "@/components/hackathons/HackathonsSection";
 import { MethodsSection } from "@/components/methods/MethodsSection";
 import { StatuslineShowcase } from "@/components/statusline-showcase/StatuslineShowcase";
+import { LifeSection } from "@/components/life/LifeSection";
 
 /**
  * Home. Layering (the v0.7 fix): BgMap is a fixed canvas at z-0, StarTrail a fixed canvas
@@ -34,6 +35,7 @@ export default function Home() {
         <HackathonsSection />
         <MethodsSection />
         <StatuslineShowcase />
+        <LifeSection />
       </main>
     </>
   );

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 import "./globals.css";
-import { getTicker } from "@/lib/telemetry";
+import { getTicker, getFocus } from "@/lib/telemetry";
 import { ToastProvider } from "@/components/shell/ToastProvider";
 import { Statusline } from "@/components/shell/Statusline";
 import { Progress } from "@/components/shell/Progress";
@@ -32,11 +32,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const ticker = getTicker();
+  const focus = getFocus();
   return (
     <html lang="en" className={`${mono.variable} ${sans.variable}`}>
       <body>
         <ToastProvider>
-          <Statusline ticker={ticker} />
+          <Statusline ticker={ticker} focus={focus} />
           <Progress />
           {children}
           <Footer />

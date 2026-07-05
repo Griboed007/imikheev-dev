@@ -1,10 +1,9 @@
 {
-  "items": [
+  "focus": "agentic-platforms",
+  "ticker": [
     { "segments": [{ "text": "[live]", "strong": true }, { "text": " thread-mesh 7 nodes nominal" }] },
     { "segments": [{ "text": "deckgen verify " }, { "text": "56/56 → ledger", "strong": true }] },
     { "segments": [{ "text": "tracker boards " }, { "text": "live", "strong": true }, { "text": " + ai summaries" }] },
-    { "segments": [{ "text": "in the grinder " }, { "text": "sweet peach", "strong": true }, { "text": " · fancy beans" }] },
-    { "segments": [{ "text": "cross-country on the " }, { "text": "grand canyon 8", "strong": true }] },
     { "segments": [{ "text": "geofence-twin roc-auc " }, { "text": "0.8247", "strong": true }] },
     { "segments": [{ "text": "github " }, { "text": "@Griboed007", "strong": true }] },
     { "segments": [{ "text": "in press " }, { "text": "verzekeraars.nl", "strong": true }] },
