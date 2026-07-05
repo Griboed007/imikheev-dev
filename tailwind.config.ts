@@ -68,12 +68,25 @@ const config: Config = {
           },
           "50%": { borderColor: "var(--amber)", color: "var(--amber)" },
         },
+        // Hero accent glow (tokens.md §motion: text-shadow pulse 3.2s ease-in-out).
+        glow: {
+          "0%,100%": { textShadow: "0 0 14px rgba(245,167,66,.30)" },
+          "50%": {
+            textShadow: "0 0 26px rgba(245,167,66,.75), 0 0 52px rgba(245,167,66,.28)",
+          },
+        },
+        // Hero caret blink (tokens.md §motion: blink 1.05s steps(1)).
+        blink: {
+          "50%": { opacity: "0" },
+        },
       },
       animation: {
         marquee: "marquee 42s linear infinite",
         "marquee-mobile": "marquee 36s linear infinite",
         "dot-pulse": "dot-pulse 2.4s ease-in-out infinite",
         beat: "beat 3.2s ease-in-out infinite",
+        glow: "glow 3.2s ease-in-out infinite",
+        blink: "blink 1.05s steps(1) infinite",
       },
     },
   },

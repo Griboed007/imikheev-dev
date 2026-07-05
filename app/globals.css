@@ -83,10 +83,134 @@ button {
   mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
 
+/* ---------- hero (003) — ported from mockup .hero / .orb-wrap / .hl ---------- */
+
+/* Full-page star trail: above content, never intercepts pointer events. */
+.star-trail {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 38px;
+  overflow: hidden;
+  background-image: radial-gradient(rgba(237, 230, 218, .045) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* The content column. `position: relative` anchors the orb to THIS edge (1060px
+ * centered), not the viewport — the proposal's "hard part" and the 4k Live DoD. */
+.hero-inner {
+  position: relative;
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* CSS owns the base translate via --py so JS scroll-parallax composes with the mobile
+ * centering (proposal §Design: transform ownership). JS only writes --py + opacity. */
+.orb-wrap {
+  position: absolute;
+  top: 50%;
+  right: -56px;
+  transform: translateY(calc(-50% + var(--py, 0px)));
+  width: min(44vw, 560px);
+  aspect-ratio: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+.orb-glow {
+  position: absolute;
+  inset: -12%;
+  background: radial-gradient(
+    circle at 50% 46%,
+    rgba(245, 167, 66, .16),
+    rgba(245, 167, 66, .05) 42%,
+    transparent 66%
+  );
+}
+.orb-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 660px;
+}
+
+/* Mask slide-up for each h1 line; .is-ready (set on mount) triggers it. */
+.hl {
+  display: block;
+  overflow: hidden;
+}
+.hl > span {
+  display: block;
+  transform: translateY(112%);
+  transition: transform .9s var(--ease-reveal);
+}
+.hl:nth-child(2) > span {
+  transition-delay: .12s;
+}
+.hero.is-ready .hl > span {
+  transform: none;
+}
+
+.hero-sub {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .7s ease .45s, transform .7s ease .45s;
+}
+.hero.is-ready .hero-sub {
+  opacity: 1;
+  transform: none;
+}
+.hero-hints {
+  opacity: 0;
+  transition: opacity .7s ease .65s;
+}
+.hero.is-ready .hero-hints {
+  opacity: 1;
+}
+
+/* ≤860px: orb re-centers behind the copy at reduced opacity/glow (separate breakpoint
+ * from the 760px statusline diet). --py parallax is damped to 0.4. */
+@media (max-width: 860px) {
+  .orb-wrap {
+    right: 50%;
+    left: auto;
+    transform: translate(50%, calc(-50% + var(--py, 0px) * .4));
+    width: min(100vw, 500px);
+    opacity: .26;
+  }
+  .orb-glow {
+    opacity: .5;
+    inset: -4%;
+  }
+}
+
+/* ≤760px: dimmer dot-grid, no top pad (the tickbar sits above instead). */
+@media (max-width: 760px) {
+  .hero {
+    background-image: radial-gradient(rgba(237, 230, 218, .03) 1px, transparent 1px);
+    padding-top: 0;
+  }
+}
+
 /*
  * Reduced-motion kill switch (tokens.md §motion — a requirement, not polish).
  * Neutralizes every transition/animation/loop globally; per-component logic
- * (e.g. <Reveal>) also renders its final state directly under this preference.
+ * (e.g. <Reveal>, <WordCycle>, <Orb>) also renders its final state directly, and
+ * <StarTrail> does not mount at all under this preference.
  */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -96,5 +220,13 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  /* Hero copy must be visible even if the .is-ready class never arrives. */
+  .hl > span,
+  .hero-sub,
+  .hero-hints {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
   }
 }
